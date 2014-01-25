@@ -1,7 +1,7 @@
-TEMPLATE = app
-CONFIG += console
-CONFIG -= app_bundle
-CONFIG -= qt
+TEMPLATE = subdirs
+SUBDIRS = polpcontrol \
+    polpcore \
+    plugins
 
-SOURCES += main.cpp
-
+polpcontrol.depends = polpcore
+plugins.depends = polpcore

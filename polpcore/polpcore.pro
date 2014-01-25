@@ -4,17 +4,10 @@
 #
 #-------------------------------------------------
 
-QT       -= gui
-
 TARGET = polpcore
 TEMPLATE = lib
 
 DEFINES += POLPCORE_LIBRARY
-
-SOURCES += polpcore.cpp
-
-HEADERS += polpcore.h\
-        polpcore_global.h
 
 unix {
     target.path = /usr/lib
