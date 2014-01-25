@@ -1,4 +1,4 @@
 polp
 ====
 
-Polp code.
+This repository contains application code for polp.
