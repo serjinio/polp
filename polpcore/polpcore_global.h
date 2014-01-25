@@ -1,0 +1,12 @@
+#ifndef POLPCORE_GLOBAL_H
+#define POLPCORE_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(POLPCORE_LIBRARY)
+#  define POLPCORESHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define POLPCORESHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // POLPCORE_GLOBAL_H
