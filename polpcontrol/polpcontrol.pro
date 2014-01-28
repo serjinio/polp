@@ -13,8 +13,21 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    pluginmanager.cpp \
+    project.cpp \
+    projectmanager.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    pluginmanager.h \
+    project.h \
+    projectmanager.h
 
 FORMS    += mainwindow.ui
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../polpcore/release/ -lpolpcore
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../polpcore/debug/ -lpolpcore
+else:unix: LIBS += -L$$OUT_PWD/../polpcore/ -lpolpcore
+
+INCLUDEPATH += $$PWD/../polpcore
+DEPENDPATH += $$PWD/../polpcore

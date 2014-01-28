@@ -4,6 +4,8 @@
 #
 #-------------------------------------------------
 
+QT       += core gui widgets
+
 TARGET = polpcore
 TEMPLATE = lib
 
@@ -13,3 +15,14 @@ unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+
+HEADERS += \
+    data.h \
+    plugins.h \
+    simpleanalyser.h \
+    simpleview.h
+
+SOURCES += \
+    data.cpp \
+    simpleanalyser.cpp \
+    simpleview.cpp
