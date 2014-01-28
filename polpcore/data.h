@@ -6,6 +6,7 @@
 #include <QString>
 #include <QVariant>
 #include <QList>
+#include <QVector>
 
 class Data : public QObject{
     Q_OBJECT
@@ -30,8 +31,8 @@ class Data2D: public Data{
 public:
     explicit Data2D(QObject *parent = 0);
     void addPoint(QString curve, double x, double y);
-    QVector<double> x(QString curve);
-    QVector<double> y(QString curve);
+    QVector<double> *x(QString curve);
+    QVector<double> *y(QString curve);
     QList<QString> curvers();
     virtual void startEdit();
     virtual void stopEdit();
@@ -44,13 +45,13 @@ class DataBin : public Data{
     Q_OBJECT
 public:
     explicit DataBin(QObject *parent = 0);
-    long size();
-    char* data();
-    void setData(int size, char* data);
+    ulong size();
+    char *data();
+    void setData(ulong size, char* data);
     virtual void startEdit();
     virtual void stopEdit();
 private:
     char* _data;
-    long _size;
+    ulong _size;
 };
 #endif // DATA_H

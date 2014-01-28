@@ -11,6 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = polpcontrol
 TEMPLATE = app
 
+CONFIG -= app_bundle
 
 SOURCES += main.cpp\
         mainwindow.cpp \

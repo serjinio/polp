@@ -8,22 +8,22 @@ class PluginManager
 private:
     PluginManager();
 public:
-    static PluginManager instance();
+    static PluginManager* instance();
 
     void loadPlugins();
-    QMap<QString, View*> views();
+    QMap<QString, View *> views();
     QMap<QString, Analyser*> analysers();
-    QMap<QString, Tool*> tools();
+    QMap<QString, Tool *> tools();
 
     QList<FileFormat*> fileFormats();
     QList<Device*> devices();
-    QList<Simulation*> simulations();
+    QList<Simulation *> simulations();
 
-    View * findView(QString key);
+    View *findView(QString key);
 
 
 private:
-    void loadPlugin();
+    void loadPlugin(QObject* plugin);
 
     QMap<QString, View*> _views;
     QMap<QString, Analyser*> _analysers;
