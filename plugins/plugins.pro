@@ -6,4 +6,5 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    SMDFileFormat
+    SMDFileFormat \
+    SMDFileFormatTest
