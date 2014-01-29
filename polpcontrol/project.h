@@ -13,6 +13,8 @@ signals:
 
 public slots:
 
+private:
+    QString filename;
 };
 
 #endif // PROJECT_H
