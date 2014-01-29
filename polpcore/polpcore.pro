@@ -30,9 +30,9 @@ SOURCES += \
 FORMS += \
     simpleviewform.ui
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../qcustomplot/release/ -lqcustomplotd
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../qcustomplot/debug/ -lqcustomplotd
-else:unix: LIBS += -L$$OUT_PWD/../qcustomplot/ -lqcustomplotd
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../qcustomplot/release/ -lqcustomplotd1
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../qcustomplot/debug/ -lqcustomplotd1
+else:unix: LIBS += -L$$OUT_PWD/../qcustomplot/ -lqcustomplotd1
 
 INCLUDEPATH += $$PWD/../qcustomplot
 DEPENDPATH += $$PWD/../qcustomplot
