@@ -6,13 +6,8 @@
 class SMDFileFormatTest : public QObject
 {
     Q_OBJECT
-public:
-    explicit SMDFileFormatTest(QObject *parent = 0);
-
-signals:
-
-public slots:
-    void testPaseSMDHeader();
+private slots:
+    void testParseSMDHeader();
 };
 
 #endif // SMDFILEFORMATTEST_H
