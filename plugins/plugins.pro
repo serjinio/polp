@@ -4,3 +4,6 @@
 #
 #-------------------------------------------------
 TEMPLATE = subdirs
+
+SUBDIRS += \
+    SMDFileFormat
