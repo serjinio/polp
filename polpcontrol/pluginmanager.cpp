@@ -18,8 +18,8 @@ PluginManager* PluginManager::instance(){
 }
 
 void PluginManager::loadPlugins(){
-    //loadPlugin(new SimpleView);
-   // loadPlugin(new SimpleAnalyser);
+    loadPlugin(new SimpleView);
+    loadPlugin(new SimpleAnalyser);
     QDir pluginsDir = QDir(qApp->applicationDirPath());
         qDebug("%s", pluginsDir.absolutePath().toLocal8Bit().data());
     #if defined(Q_OS_WIN)

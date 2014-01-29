@@ -4,17 +4,28 @@
 #include <QObject>
 #include <plugins.h>
 
-class SimpleView : public QObject, public View
+namespace Ui {
+class SimpleViewForm;
+}
+
+class SimpleView : public QWidget, public View
 {
     Q_OBJECT
     Q_INTERFACES(View)
 public:
-    explicit SimpleView(QObject *parent = 0);
-
+    explicit SimpleView(QWidget *parent = 0);
+    ~SimpleView();
+    virtual QString title();
+    virtual QWidget * viewPane();
+    virtual int setData(Data* data);
+    virtual QString error();
 signals:
 
 public slots:
 
+private:
+    QString error_message;
+    Ui::SimpleViewForm* ui;
 };
 
 #endif // SIMPLEVIEW_H

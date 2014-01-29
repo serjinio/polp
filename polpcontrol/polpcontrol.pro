@@ -32,3 +32,11 @@ else:unix: LIBS += -L$$OUT_PWD/../polpcore/ -lpolpcore
 
 INCLUDEPATH += $$PWD/../polpcore
 DEPENDPATH += $$PWD/../polpcore
+
+macx {
+    corelib.target = libpolpcore.1.dylib
+    corelib.commands = install_name_tool -change libpolpcore.1.dylib  $$OUT_PWD/../polpcore/libpolpcore.1.dylib $$OUT_PWD/polpcontrol
+QMAKE_POST_LINK+= $$corelib.commands
+}
+
+

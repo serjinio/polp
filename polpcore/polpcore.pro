@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets
+QT       += core gui widgets printsupport
 
 TARGET = polpcore
 TEMPLATE = lib
@@ -26,3 +26,20 @@ SOURCES += \
     data.cpp \
     simpleanalyser.cpp \
     simpleview.cpp
+
+FORMS += \
+    simpleviewform.ui
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../qcustomplot/release/ -lqcustomplotd
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../qcustomplot/debug/ -lqcustomplotd
+else:unix: LIBS += -L$$OUT_PWD/../qcustomplot/ -lqcustomplotd
+
+INCLUDEPATH += $$PWD/../qcustomplot
+DEPENDPATH += $$PWD/../qcustomplot
+
+
+macx {
+    corelib.target = libqcustomplotd.1.dylib
+    corelib.commands = install_name_tool -change libqcustomplotd.1.dylib  $$OUT_PWD/../qcustomplot/libqcustomplotd.1.dylib $$OUT_PWD/libpolpcore.1.0.0.dylib
+QMAKE_POST_LINK+= $$corelib.commands
+}
