@@ -24,3 +24,8 @@ QMAKE_TARGET_COPYRIGHT = "Copyright (C) by Emanuel Eichhammer"
 
 SOURCES += qcustomplot.cpp
 HEADERS += qcustomplot.h
+
+
+win32{
+DESTDIR  = OUT_PWD/../../polpcontrol/debug
+}

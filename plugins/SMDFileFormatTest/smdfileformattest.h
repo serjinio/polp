@@ -2,12 +2,22 @@
 #define SMDFILEFORMATTEST_H
 
 #include <QObject>
+#include <smdfileformat.h>
+
+class SMDFileFormatUT : public SMDFileFormat
+{
+    friend class SMDFileFormatTest;
+
+    Q_OBJECT
+};
 
 class SMDFileFormatTest : public QObject
 {
     Q_OBJECT
 private slots:
     void testParseSMDHeader();
+
+public:
 };
 
 #endif // SMDFILEFORMATTEST_H

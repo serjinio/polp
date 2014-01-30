@@ -4,5 +4,6 @@ SUBDIRS = polpcore \
     plugins \
     polpcontrol \
 
+polpcore.depends = qcustomplot
 polpcontrol.depends = polpcore
 plugins.depends = polpcore

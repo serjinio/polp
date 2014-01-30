@@ -11,12 +11,7 @@ QString SMDFileFormat::extension(){
 }
 
 QString SMDFileFormat::description(){
-<<<<<<< HEAD
     return "Reads from and writes data in .smd format.";
-=======
-    //TODo:: add description
-    return "smd";
->>>>>>> mev/master
 }
 
 int SMDFileFormat::loadData(Data *data){
@@ -88,7 +83,7 @@ QMap<QString, QString> SMDFileFormat::parseSMDHeader(QTextStream& stream)
             this->error_message = "Invalid SMD header found.";
         }
 
-        headerData.insert(lstLine.at(0), lstLine.at(1));
+        headerData.insert(lstLine.at(0).trimmed(), lstLine.at(1).trimmed());
     }
 
     return headerData;

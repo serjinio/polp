@@ -43,3 +43,7 @@ macx {
     corelib.commands = install_name_tool -change libqcustomplotd.1.dylib  $$OUT_PWD/../qcustomplot/libqcustomplotd.1.dylib $$OUT_PWD/libpolpcore.1.0.0.dylib
     QMAKE_POST_LINK+= $$corelib.commands
 }
+
+win32{
+    DESTDIR  = OUT_PWD/../../polpcontrol/debug
+}

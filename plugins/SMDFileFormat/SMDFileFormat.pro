@@ -28,3 +28,7 @@ else:unix: LIBS += -L$$OUT_PWD/../../polpcore/ -lpolpcore
 
 INCLUDEPATH += $$PWD/../../polpcore
 DEPENDPATH += $$PWD/../../polpcore
+
+win32 {
+    DESTDIR  = OUT_PWD/../../SMDFileFormatTest/debug
+}
