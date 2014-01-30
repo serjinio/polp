@@ -11,7 +11,12 @@ QString SMDFileFormat::extension(){
 }
 
 QString SMDFileFormat::description(){
+<<<<<<< HEAD
     return "Reads from and writes data in .smd format.";
+=======
+    //TODo:: add description
+    return "smd";
+>>>>>>> mev/master
 }
 
 int SMDFileFormat::loadData(Data *data){

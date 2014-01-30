@@ -79,25 +79,34 @@ QList<Simulation *> PluginManager::simulations(){
 }
 
 View *PluginManager::findView(QString key){
-    return (_views.contains(key))?_views.value(key):NULL;
+    if(_views.contains(key)){
+        return _views.value(key);
+    }
+    return _views.value("Simple view");
 }
 
 void PluginManager::loadPlugin(QObject *plugin){
     if(qobject_cast<View*>(plugin)!=NULL){
-        _views.insert(((View*)plugin)->title(),(View*)plugin);
+        View* o = qobject_cast<View*>(plugin);
+        QString key = o->title();
+        _views.insert(key,o);
     }else if(qobject_cast<Tool*>(plugin)!=NULL){
-        _tools.insert(((Tool*)plugin)->title(),(Tool*)plugin);
+        Tool* o = qobject_cast<Tool*>(plugin);
+        QString key = o->title();
+        _tools.insert(key,o);
     }
     else if(qobject_cast<Analyser*>(plugin)!=NULL){
-        _analysers.insert(((Analyser*)plugin)->title(),(Analyser*)plugin);
+        Analyser* o = qobject_cast<Analyser*>(plugin);
+        QString key = o->title();
+        _analysers.insert(key,o);
     }
     else if(qobject_cast<Simulation*>(plugin)!=NULL){
-        _simulations.append((Simulation*)plugin);
+        _simulations.append(qobject_cast<Simulation*>(plugin));
     }
     else if(qobject_cast<FileFormat*>(plugin)!=NULL){
-        _fileFormats.append((FileFormat*)plugin);
+        _fileFormats.append(qobject_cast<FileFormat*>(plugin));
     }else if(qobject_cast<Device*>(plugin)!=NULL){
-        _devices.append((Device*)plugin);
+        _devices.append(qobject_cast<Device*>(plugin));
     }else{
         qDebug("Unknown plugin class");
     }

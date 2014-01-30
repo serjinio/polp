@@ -15,8 +15,12 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+private slots:
+    void on_actionOpen_triggered();
+
 private:
     Ui::MainWindow *ui;
+    void timerEvent(QTimerEvent *event);
 };
 
 #endif // MAINWINDOW_H

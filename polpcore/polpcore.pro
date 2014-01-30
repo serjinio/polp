@@ -41,5 +41,5 @@ DEPENDPATH += $$PWD/../qcustomplot
 macx {
     corelib.target = libqcustomplotd.1.dylib
     corelib.commands = install_name_tool -change libqcustomplotd.1.dylib  $$OUT_PWD/../qcustomplot/libqcustomplotd.1.dylib $$OUT_PWD/libpolpcore.1.0.0.dylib
-QMAKE_POST_LINK+= $$corelib.commands
+    QMAKE_POST_LINK+= $$corelib.commands
 }

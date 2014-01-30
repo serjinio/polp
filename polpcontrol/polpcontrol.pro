@@ -6,7 +6,7 @@
 
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets macextras
 
 TARGET = polpcontrol
 TEMPLATE = app
@@ -35,8 +35,7 @@ DEPENDPATH += $$PWD/../polpcore
 
 macx {
     corelib.target = libpolpcore.1.dylib
-    corelib.commands = install_name_tool -change libpolpcore.1.dylib  $$OUT_PWD/../polpcore/libpolpcore.1.dylib $$OUT_PWD/polpcontrol
+    corelib.commands = install_name_tool -change libpolpcore.1.dylib  $$OUT_PWD/../polpcore/libpolpcore.1.dylib $$OUT_PWD/polpcontrol;
 QMAKE_POST_LINK+= $$corelib.commands
 }
-
 

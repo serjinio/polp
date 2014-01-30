@@ -1,11 +1,12 @@
 #include "mainwindow.h"
 #include <QApplication>
-#include "data.h"
-int main(int argc, char *argv[])
-{
+#include "pluginmanager.h"
+
+int main(int argc, char *argv[]){
     QApplication a(argc, argv);
-    new Data2D();
+    PluginManager::instance()->loadPlugins();
     MainWindow w;
+
     w.show();
     return a.exec();
 }
