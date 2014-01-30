@@ -8,6 +8,7 @@ QString SMDFileFormat::extension(){
 }
 
 QString SMDFileFormat::description(){
+    //TODo:: add description
     return "smd";
 }
 
@@ -18,8 +19,7 @@ int SMDFileFormat::loadData(Data *data){
 // open file , read file ,fill data2d obj(curve1 = real , curve=image),
 //
 // use startEdit(), addPoint(), setParameter(), stopEdit()
-
-
+return 0;
 }
 
 int SMDFileFormat::saveData(Data *data){
@@ -27,7 +27,7 @@ int SMDFileFormat::saveData(Data *data){
     // create file to open data.parameter("filename")
     // if QVariant not QString error "wronf file name"
     //  take first two curves from data2D(error if no 2curves)
-
+return 0;
 }
 
 QString SMDFileFormat::error(){
