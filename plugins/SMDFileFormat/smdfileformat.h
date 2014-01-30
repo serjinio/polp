@@ -24,6 +24,7 @@ protected:
     QMap<QString, QString> parseSMDHeader(QTextStream&);
     QMap<QString, QVector<double> > parseSMDDataStream(QTextStream&);
     int validateFilename(QString filename);
+    bool hasError();
 private:
     QString error_message;
 };

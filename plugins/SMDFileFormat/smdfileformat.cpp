@@ -30,9 +30,15 @@ int SMDFileFormat::loadData(Data *data){
     QFile file(filename);
     QTextStream inputDataStream(&file);
 
-    //QMap<QString, QString> headerParams = parseSMDHeader(textStream);
-    //QMap<QString, QVector<double> > dataPoints = parseSMDDataStream(textStream);
+    QMap<QString, QString> headerParams = parseSMDHeader(inputDataStream);
+    if (hasError()) {
+        return -1;
+    }
 
+    QMap<QString, QVector<double> > dataPoints = parseSMDDataStream(inputDataStream);
+    if (hasError()) {
+        return -1;
+    }
 
 // if !qobject_cast<Data2D*>(data) else error "Wrong data format"
 // create file to open data.parameter("filename")
@@ -41,7 +47,7 @@ int SMDFileFormat::loadData(Data *data){
 //
 // use startEdit(), addPoint(), setParameter(), stopEdit()
 
-
+    return 0;
 }
 
 int SMDFileFormat::saveData(Data *data){
@@ -50,6 +56,7 @@ int SMDFileFormat::saveData(Data *data){
     // if QVariant not QString error "wronf file name"
     //  take first two curves from data2D(error if no 2curves)
 
+    return 0;
 }
 
 QString SMDFileFormat::error(){
@@ -62,7 +69,24 @@ QString SMDFileFormat::preferedView(){
 
 QMap<QString, QString> SMDFileFormat::parseSMDHeader(QTextStream& stream)
 {
+    QMap<QString, QString> headerData;
 
+    while (!stream.atEnd())
+    {
+        QString line = stream.readLine();
+        if (line.isNull() || line.startsWith("#")) { // end of header
+            break;
+        }
+
+        QStringList lstLine = line.split("=");
+        if (lstLine.length() != 2) {
+            this->error_message = "Invalid SMD header found.";
+        }
+
+        headerData.insert(lstLine.at(0), lstLine.at(1));
+    }
+
+    return headerData;
 }
 
 QMap<QString, QVector<double> > SMDFileFormat::parseSMDDataStream(QTextStream& stream)
@@ -74,15 +98,24 @@ int SMDFileFormat::validateFilename(QString filename)
 {
     if (filename == NULL || filename.isEmpty()) {
         this->error_message = "'filename' parameter cannot be empty!";
-        return NULL;
+        return -1;
     }
 
     QFile file(filename);
     if (!file.exists() || !file.isReadable()) {
         this->error_message = "Cannot open provided input file: " + filename;
-        return NULL;
+        return -1;
     }
 
     return 0;
+}
+
+bool SMDFileFormat::hasError()
+{
+    if (!error_message.isNull()) {
+        return true;
+    } else {
+        return false;
+    }
 }
 

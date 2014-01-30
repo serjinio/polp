@@ -1,8 +1,8 @@
 TEMPLATE = subdirs
-SUBDIRS = polpcontrol \
-    polpcore \
+SUBDIRS = polpcore \
+    qcustomplot \
     plugins \
-    qcustomplot
+    polpcontrol \
 
 polpcontrol.depends = polpcore
-plugins.depends = qcustomplotd polpcore
+plugins.depends = polpcore
