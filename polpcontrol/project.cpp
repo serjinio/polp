@@ -1,9 +1,14 @@
 #include "project.h"
 #include "pluginmanager.h"
+#include "projectmanager.h"
 
 Project::Project(QObject *parent) :
     QObject(parent)
 {
+}
+
+QList<ProjectItem *> Project::items(){
+    return _items;
 }
 
 void Project::addItem(Data *data, Simulation *sim){
@@ -66,8 +71,7 @@ void SimulationProjectItem::itemSelected(){
     //TODO::
 }
 
-QWidget *SimulationProjectItem::control() //TODO::
-{
+QWidget *SimulationProjectItem::control() {//TODO::
     return NULL;
 }
 
@@ -85,6 +89,62 @@ QWidget *DeviceProjectItem::control(){
     if(device!=NULL){
         return device->controlPane();
     }
+}
+
+
+ProjectModel::ProjectModel(QObject *parent):QAbstractListModel(parent){
+}
+
+ProjectModel::~ProjectModel(){
+}
+
+QVariant ProjectModel::data(const QModelIndex &index, int role) const{
+    if(!index.isValid())
+            return QVariant();
+    Project* project = ProjectManager::instance()->currentProject();
+    if(!project){
+        return project->items().at(index.row())->title;
+    }
+    return QVariant();
+}
+
+QVariant ProjectModel::headerData(int selection, Qt::Orientation orientation, int role) const{
+    return "Project";
+}
+
+int ProjectModel::rowCount(const QModelIndex &parent) const{
+    Project* project = ProjectManager::instance()->currentProject();
+    if(project!=NULL){
+        return project->items().size();
+    }
+    return 0;
+}
+
+bool ProjectModel::insertRows(int position, int rows, const QModelIndex &parent){
+    return false; //TODO::
+}
+
+bool ProjectModel::removeRows(int position, int rows, const QModelIndex &parent)
+{
+    beginRemoveRows(QModelIndex(), position, position + rows - 1);
+    Project* project = ProjectManager::instance()->currentProject();
+    if(project!=NULL){
+        for(int row = 0; row < rows; ++row){
+            project->removeItem(project->items().at(position));
+        }
+     }
+        endRemoveRows();
+        return true;
+}
+
+bool ProjectModel::setData(const QModelIndex &index, const QVariant &value, int role){
+    return false; //TODO::
+}
+
+Qt::ItemFlags ProjectModel::flags(const QModelIndex &index) const{
+    if(!index.isValid())
+            return Qt::ItemIsEditable;
+        return QAbstractListModel::flags(index) |  Qt::ItemIsSelectable;
 }
 
 
