@@ -9,6 +9,7 @@
 class ProjectItem : public QObject{
 public:
     explicit ProjectItem(QObject *parent = 0);
+    virtual ~ProjectItem();
     QString title;
     Data* data;
     View* view;
@@ -52,17 +53,18 @@ public:
     void removeItem(ProjectItem* item);
     Status status();
 
-signals:
-    void projectChanged();
 public slots:
 
 private:
     QString filename;
     QList<ProjectItem*> _items;
     Status _status;
+signals:
+    void projectChanged();
 };
 
 class ProjectModel: public QAbstractListModel{
+    Q_OBJECT
 public:
     ProjectModel(QObject *parent = 0);
         ~ProjectModel();
@@ -76,6 +78,8 @@ public:
 
         Qt::ItemFlags flags(const QModelIndex &index) const;
 
+private slots:
+         void onProjectChanged();
 };
 
 #endif // PROJECT_H

@@ -12,7 +12,8 @@ QList<ProjectItem *> Project::items(){
 }
 
 void Project::addItem(Data *data, Simulation *sim){
-    SimulationProjectItem * item = new SimulationProjectItem;
+    SimulationProjectItem * item = new SimulationProjectItem(this);
+    item->title = data->parameter("title").toString();
     item->data = data;
     item->simulation = sim;
     item->view = PluginManager::instance()->findView(sim->preferedView());
@@ -22,9 +23,10 @@ void Project::addItem(Data *data, Simulation *sim){
 }
 
 void Project::addItem(Data *data, Device *dev){
-    DeviceProjectItem * item = new DeviceProjectItem;
+    DeviceProjectItem * item = new DeviceProjectItem(this);
     item->data = data;
     item->device = dev;
+    item->title = data->parameter("title").toString();
     item->view = PluginManager::instance()->findView(dev->preferedView());
     _items.append(item);
     _status = Unsaved;
@@ -32,8 +34,9 @@ void Project::addItem(Data *data, Device *dev){
 }
 
 void Project::addItem(Data *data,QString preferedview){
-    ProjectItem * item = new ProjectItem;
+    ProjectItem * item = new ProjectItem(this);
     item->data = data;
+    item->title = data->parameter("title").toString();
     item->view = PluginManager::instance()->findView(preferedview);
     _items.append(item);
     _status = Unsaved;
@@ -51,6 +54,9 @@ ProjectItem::ProjectItem(QObject *parent):QObject(parent){
    analyser =NULL;
    data = NULL;
    view =NULL;
+}
+
+ProjectItem::~ProjectItem(){
 }
 
 void ProjectItem::itemSelected(){
@@ -93,6 +99,8 @@ QWidget *DeviceProjectItem::control(){
 
 
 ProjectModel::ProjectModel(QObject *parent):QAbstractListModel(parent){
+
+    connect(ProjectManager::instance(),SIGNAL(projectChanged()),this,SLOT(onProjectChanged()));
 }
 
 ProjectModel::~ProjectModel(){
@@ -101,9 +109,14 @@ ProjectModel::~ProjectModel(){
 QVariant ProjectModel::data(const QModelIndex &index, int role) const{
     if(!index.isValid())
             return QVariant();
-    Project* project = ProjectManager::instance()->currentProject();
-    if(!project){
+    if ( role == Qt::DisplayRole ) {
+        Project* project = ProjectManager::instance()->currentProject();
         return project->items().at(index.row())->title;
+    } if(role ==Qt::UserRole){
+        Project* project = ProjectManager::instance()->currentProject();
+        QVariant v;
+        v.setValue<void*>(project->items().at(index.row()));
+        return v;
     }
     return QVariant();
 }
@@ -113,11 +126,8 @@ QVariant ProjectModel::headerData(int selection, Qt::Orientation orientation, in
 }
 
 int ProjectModel::rowCount(const QModelIndex &parent) const{
-    Project* project = ProjectManager::instance()->currentProject();
-    if(project!=NULL){
-        return project->items().size();
-    }
-    return 0;
+    Project* project = ProjectManager::instance()->currentProject();  
+    return project->items().size();
 }
 
 bool ProjectModel::insertRows(int position, int rows, const QModelIndex &parent){
@@ -144,7 +154,13 @@ bool ProjectModel::setData(const QModelIndex &index, const QVariant &value, int 
 Qt::ItemFlags ProjectModel::flags(const QModelIndex &index) const{
     if(!index.isValid())
             return Qt::ItemIsEditable;
-        return QAbstractListModel::flags(index) |  Qt::ItemIsSelectable;
+    return QAbstractListModel::flags(index) |  Qt::ItemIsSelectable;
+}
+
+void ProjectModel::onProjectChanged(){
+    QModelIndex _left = createIndex(0,0);
+    QModelIndex _right = createIndex(ProjectManager::instance()->currentProject()->items().size()-1,0);
+    emit dataChanged(_left,_right);
 }
 
 

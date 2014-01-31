@@ -2,6 +2,8 @@
 #include <QDir>
 #include <QPluginLoader>
 #include <QApplication>
+#include <simplesim.h>
+#include <simpledevice.h>
 #include "simpleview.h"
 #include "simpleanalyser.h"
 
@@ -20,6 +22,8 @@ PluginManager* PluginManager::instance(){
 void PluginManager::loadPlugins(){
     loadPlugin(new SimpleView);
     loadPlugin(new SimpleAnalyser);
+    loadPlugin(new SimpleSim);
+    loadPlugin(new SimpleDevice);
     QDir pluginsDir = QDir(qApp->applicationDirPath());
         qDebug("%s", pluginsDir.absolutePath().toLocal8Bit().data());
     #if defined(Q_OS_WIN)
@@ -83,6 +87,24 @@ View *PluginManager::findView(QString key){
         return _views.value(key);
     }
     return _views.value("Simple view");
+}
+
+Simulation *PluginManager::findSimulation(QString title){
+    Q_FOREACH(Simulation * sim, _simulations){
+        if(title == sim->title())
+            return sim;
+    }
+    qDebug("ERROR:: PluginManager :: Simulation not found");
+    return NULL;
+}
+
+Device *PluginManager::findDevice(QString title){
+Q_FOREACH(Device * dev, _devices){
+    if(title == dev->deviceClass())
+        return dev;
+}
+qDebug("ERROR:: PluginManager :: Device not found");
+return NULL;
 }
 
 void PluginManager::loadPlugin(QObject *plugin){

@@ -2,9 +2,9 @@
 
 static ProjectManager* manager=NULL;
 
-ProjectManager::ProjectManager() {
-    _currentProject = new Project();
-    _currentProject->filename = "untitled";
+ProjectManager::ProjectManager(QObject *parent) :QObject(parent){
+    _currentProject=NULL;
+    newProject();
 }
 
 ProjectManager* ProjectManager::instance(){
@@ -25,11 +25,22 @@ Project *ProjectManager::currentProject(){
 
 Project *ProjectManager::newProject(){
     //TODO:: Add checking for need of saving
+    // Save project
+    if(_currentProject!=NULL){
+        delete _currentProject;
+    }
     _currentProject = new Project();
+    connect(_currentProject,SIGNAL(projectChanged()),this,SLOT(onProjectChanged()));
+    _currentProject->filename = "untitled";
+    emit projectChanged();
     return _currentProject;
 }
 
 void ProjectManager::saveCurrentProject(){
     //TODO:: implement loadFromFile
     qDebug("Not implemented ProjectManager::saveCurrentProject");
+}
+
+void ProjectManager::onProjectChanged(){
+    emit projectChanged();
 }
