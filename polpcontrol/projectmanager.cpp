@@ -3,7 +3,8 @@
 static ProjectManager* manager=NULL;
 
 ProjectManager::ProjectManager() {
-    _currentProject = 0;
+    _currentProject = new Project();
+    _currentProject->filename = "untitled";
 }
 
 ProjectManager* ProjectManager::instance(){

@@ -18,9 +18,16 @@ public:
 private slots:
     void on_actionOpen_triggered();
 
+
 private:
     Ui::MainWindow *ui;
-    void timerEvent(QTimerEvent *event);
+    void loadViews();
+    void loadAnalysers();
+    void loadSimulations();
+    void loadDevices();
+
+private slots:
+    void view_selected(QString viewtitle);
 };
 
 #endif // MAINWINDOW_H
