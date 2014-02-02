@@ -16,6 +16,7 @@ class SMDFileFormatTest : public QObject
     Q_OBJECT
 private slots:
     void testParseSMDHeader();
+    void testParseSMDDataStream();
 
 public:
 };

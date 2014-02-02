@@ -21,8 +21,11 @@ public:
     virtual QString preferedView();
 protected:
     QTextStream getInputDataStream(QString filename);
-    QMap<QString, QString> parseSMDHeader(QTextStream&);
+
+    QMap<QString, QVariant> parseSMDHeader(QTextStream&);
     QMap<QString, QVector<double> > parseSMDDataStream(QTextStream&);
+    QVector<double> makeTimeVector(int length, double dwell);
+
     int validateFilename(QString filename);
     bool hasError();
 private:

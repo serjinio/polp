@@ -2,8 +2,8 @@
 #include <QDir>
 #include <QPluginLoader>
 #include <QApplication>
-#include <simplesim.h>
-#include <simpledevice.h>
+#include "simplesim.h"
+#include "simpledevice.h"
 #include "simpleview.h"
 #include "simpleanalyser.h"
 
