@@ -4,9 +4,10 @@
 
 #include "project.h"
 
-class ProjectManager {
+class ProjectManager :public QObject {
+    Q_OBJECT
 private:
-     ProjectManager();
+     ProjectManager(QObject *parent=0);
 public:
      static ProjectManager *instance();
      void loadFromFile(QString file);
@@ -15,6 +16,13 @@ public:
      void saveCurrentProject();
 private:
      Project* _currentProject;
+
+public:
+signals:
+     void projectChanged();
+
+private slots:
+     void onProjectChanged();
 };
 
 #endif // PROJECTMANAGER_H

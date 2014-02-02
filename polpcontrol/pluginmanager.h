@@ -20,7 +20,8 @@ public:
     QList<Simulation *> simulations();
 
     View *findView(QString key);
-
+    Simulation * findSimulation(QString title);
+    Device *findDevice(QString title);
 
 private:
     void loadPlugin(QObject* plugin);

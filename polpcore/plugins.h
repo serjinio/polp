@@ -29,7 +29,7 @@ public:
 
 class Device{
 public:
-    QStringList devices();
+    virtual QStringList devices()=0;
     virtual QWidget * controlPane()=0;
 
     // Returns non zero value if errors occur(For example: Faild to read device)
@@ -39,6 +39,7 @@ public:
     virtual QString error() = 0;
 
     virtual QString preferedView()=0;
+    virtual QString deviceClass()=0;
 };
 
 class FileFormat{
@@ -61,6 +62,7 @@ public:
     virtual QString title()=0;
     virtual Data * simulate(Data* data)=0;
     virtual QString preferedView()=0;
+    virtual void predefineDataParametres(Data* data)=0;
 };
 
 class Tool{

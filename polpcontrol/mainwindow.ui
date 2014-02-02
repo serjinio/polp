@@ -36,6 +36,9 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::ExtendedSelection</enum>
+       </property>
       </widget>
       <widget class="QWidget" name="widget" native="true">
        <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -92,8 +95,20 @@
      <property name="title">
       <string>Add ...</string>
      </property>
-     <addaction name="actionSimulation"/>
-     <addaction name="actionDevice"/>
+     <widget class="QMenu" name="menuSimulation">
+      <property name="title">
+       <string>Simulation</string>
+      </property>
+      <addaction name="separator"/>
+     </widget>
+     <widget class="QMenu" name="menuDevice">
+      <property name="title">
+       <string>Device</string>
+      </property>
+      <addaction name="separator"/>
+     </widget>
+     <addaction name="menuSimulation"/>
+     <addaction name="menuDevice"/>
     </widget>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
@@ -159,16 +174,6 @@
   <action name="actionSave_As">
    <property name="text">
     <string>Save As</string>
-   </property>
-  </action>
-  <action name="actionSimulation">
-   <property name="text">
-    <string>Simulation</string>
-   </property>
-  </action>
-  <action name="actionDevice">
-   <property name="text">
-    <string>Device</string>
    </property>
   </action>
   <action name="actionFileOpen">
