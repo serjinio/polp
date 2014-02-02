@@ -103,7 +103,7 @@ QMap<QString, QVariant> SMDFileFormat::parseSMDHeader(QTextStream& stream)
         QString key = lstLine.at(0);
         QString rawValue = lstLine.at(1);
 
-        qDebug() << "will convert: " << rawValue << " to double.";
+        qDebug() << "processing key: " << key << "; will convert: " << rawValue << " to double.";
         bool isConverted = false;
         double doubleValue = rawValue.toDouble(&isConverted);
         if (!isConverted) {
